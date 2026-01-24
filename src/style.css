@@ -11,14 +11,20 @@
     @apply antialiased transition-colors duration-500;
     margin: 0;
     display: block;
+    background-color: #f8f8f8;
+    color: #0a0a0a;
   }
 
-  body:not(.dark) {
+  .dark body {
+    @apply bg-neo-dark text-white;
+  }
+
+  .light body {
     @apply bg-neo-light text-neo-dark;
   }
 
-  body.dark {
-    @apply bg-neo-dark text-white;
+  kbd {
+    @apply px-2 py-1 text-xs font-mono bg-slate-200 dark:bg-slate-700 rounded;
   }
 }
 

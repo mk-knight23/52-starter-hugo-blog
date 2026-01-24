@@ -1,4 +1,5 @@
 import { ViteSSG } from 'vite-ssg'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import { routes } from './router'
 import './style.css'
@@ -6,7 +7,8 @@ import './style.css'
 export const createApp = ViteSSG(
   App,
   { routes },
-  () => {
-    // Pinia & other plugins
+  ({ app }) => {
+    const pinia = createPinia()
+    app.use(pinia)
   }
 )
