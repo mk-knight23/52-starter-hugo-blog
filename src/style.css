@@ -2,26 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light dark;
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply antialiased transition-colors duration-500;
+    margin: 0;
+    display: block;
+  }
+
+  body:not(.dark) {
+    @apply bg-neo-light text-neo-dark;
+  }
+
+  body.dark {
+    @apply bg-neo-dark text-white;
+  }
 }
 
-body {
-  @apply bg-neo-bg text-neo-border transition-colors duration-500 antialiased;
-  margin: 0;
-  display: block;
-}
+@layer components {
+  .brutalist-border {
+    @apply border-2 border-neo-border;
+  }
 
-.dark body {
-  @apply bg-neo-dark text-white;
-}
-
-.brutalist-border {
-  @apply border-2 border-neo-border dark:border-white;
-}
-
-.brutalist-shadow {
-  @apply shadow-neo hover:shadow-neo-hover dark:shadow-none dark:hover:shadow-neo-dark transition-all duration-300;
+  .brutalist-shadow {
+    @apply shadow-neo hover:shadow-neo-hover transition-all duration-300;
+  }
 }
 
 .font-display {

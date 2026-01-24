@@ -7,6 +7,7 @@ export default {
       colors: {
         neo: {
           bg: '#fcfcfc',
+          light: '#f5f5f5',
           dark: '#0a0a0a',
           primary: '#ff3e00',
           secondary: '#7c3aed',
