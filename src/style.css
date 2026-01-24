@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  @apply bg-neo-bg text-neo-border transition-colors duration-500 antialiased;
+  margin: 0;
+  display: block;
+}
+
+.dark body {
+  @apply bg-neo-dark text-white;
+}
+
+.brutalist-border {
+  @apply border-2 border-neo-border dark:border-white;
+}
+
+.brutalist-shadow {
+  @apply shadow-neo hover:shadow-neo-hover dark:shadow-none dark:hover:shadow-neo-dark transition-all duration-300;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+#app {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  @apply font-display font-black uppercase tracking-tighter;
+}
