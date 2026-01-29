@@ -9,7 +9,7 @@
 
 **A documentation-first knowledge base starter built with Vue 3, Vite-SSG, and Tailwind CSS v4**
 
-[Live Demo](#) | [GitHub](#)
+[Live Demo](https://neotheme.vercel.app) | [GitHub](https://github.com/mk-knight23/55-Hugo-Blog-Theme-Starter)
 
 </div>
 
