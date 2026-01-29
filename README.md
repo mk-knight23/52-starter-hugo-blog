@@ -1,4 +1,4 @@
-# NeoTheme - Neo-Brutalist Blog Theme
+# DOCS. | Knowledge Base Starter
 
 <div align="center">
 
@@ -7,85 +7,44 @@
 ![Vite-SSG](https://img.shields.io/badge/Vite--SSG-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-**A high-performance Neo-Brutalist editorial theme for Vue 3**
+**A documentation-first knowledge base starter built with Vue 3, Vite-SSG, and Tailwind CSS v4**
 
-[Live Demo](https://neotheme.vercel.app) | [GitHub](https://github.com/mk-knight23/55-Hugo-Blog-Theme-Starter)
+[Live Demo](#) | [GitHub](#)
 
 </div>
 
 ---
 
-## Overview
+## Theme: Docs-first / Knowledge System
 
-NeoTheme is a production-grade Neo-Brutalist blog theme built with Vue 3, Vite-SSG, and Tailwind CSS. It features bold typography, high-contrast visuals, and a distinctive brutalist design language.
+This starter kit is designed for creating professional documentation and knowledge bases:
 
-### Problem Statement
-
-Traditional blog themes lack visual impact and personality. They blend into a sea of generic designs without standing out or making a statement.
-
-### Solution
-
-NeoTheme provides:
-- **Bold Design**: Neo-Brutalist aesthetic with sharp edges and high contrast
-- **Theme System**: Dark/Light mode with system detection and persistence
-- **SSG Ready**: Pre-rendered pages with Vite-SSG
-- **Type Safety**: Full TypeScript support
-
----
-
-## Features Comparison
-
-| Feature | Legacy Themes | NeoTheme (v2.0) |
-| :--- | :--- | :--- |
-| **Design** | Generic/Corporate | **Neo-Brutalist Bold** |
-| **Theme** | Fixed | **Dark + Light with persistence** |
-| **Architecture** | SPA only | **Vite-SSG Static Generation** |
-| **Typography** | System fonts | **Space Grotesk + Inter** |
-| **Accessibility** | Basic | **ARIA labels, keyboard nav** |
-| **SEO** | Minimal | **@vueuse/head with full meta** |
+- **Sidebar Navigation** - Collapsible sections with icons
+- **Table of Contents** - Right sidebar for page navigation
+- **Search Bar** - Quick access to documentation
+- **Breadcrumbs** - Hierarchical navigation
+- **Code Blocks** - Syntax highlighting support
+- **Dark Mode** - System-aware theme switching
+- **Clean Typography** - Optimized for reading
 
 ---
 
 ## Tech Stack
 
-- **Framework**: Vue 3.5+ (Script Setup)
+- **Framework**: Vue 3.5+ (Composition API)
 - **SSG**: Vite-SSG for static generation
-- **Styling**: Tailwind CSS 3.4
-- **Icons**: Lucide Vue
+- **State**: Pinia 3.x
+- **Styling**: Tailwind CSS v4
+- **Routing**: Vue Router 4.x
 - **Head Management**: @vueuse/head
-- **TypeScript**: 5.9+ strict mode
+- **Icons**: Lucide Vue Next
+- **TypeScript**: 5.9+ with strict mode
 
 ---
 
-## Architecture
-
-```
-src/
-├── App.vue              # Root with theme logic
-├── main.ts              # Vite-SSG entry
-├── router.ts            # Vue Router config
-├── views/
-│   ├── Home.vue         # Blog listing
-│   └── Post.vue         # Single post
-└── style.css            # Global brutalist styles
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 20.x or higher
-- npm 10.x or higher
-
-### Installation
+## Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/mk-knight23/55-Hugo-Blog-Theme-Starter.git
-cd 55-Hugo-Blog-Theme-Starter
-
 # Install dependencies
 npm install
 
@@ -98,40 +57,115 @@ npm run build
 
 ---
 
-## Theme System
+## Docs Theme Components
 
-NeoTheme includes a fully-featured dark/light mode with:
+### Color Palette
 
-- **System Detection**: Auto-detects OS preference
-- **Manual Toggle**: Brutalist toggle button in navbar
-- **Persistence**: Preference saved in localStorage
-- **Smooth Transitions**: 500ms CSS transitions
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--color-docs-primary` | `#0ea5e9` | Primary accent (sky blue) |
+| `--color-docs-bg` | `#ffffff` | Content background |
+| `--color-docs-bg-dark` | `#0f172a` | Dark content background |
+| `--color-docs-bg-sidebar` | `#f8fafc` | Sidebar background |
+| `--color-docs-text` | `#0f172a` | Primary text |
+| `--color-docs-text-muted` | `#64748b` | Secondary text |
+
+### Typography
+
+- **Inter** - Headings and body text
+- **JetBrains Mono** - Code blocks and inline code
+
+### Available Classes
+
+```css
+.docs-container       /* Main wrapper */
+.docs-sidebar         /* Left navigation sidebar */
+.docs-content         /* Main content area */
+.docs-nav-item        /* Navigation link */
+.docs-nav-item-active /* Active navigation item */
+.docs-card            /* Content card */
+.docs-badge           /* Category/section badge */
+.docs-code-block      /* Code snippet container */
+.docs-code-inline     /* Inline code styling */
+.docs-search          /* Search input field */
+.docs-toc             /* Table of contents */
+```
+
+---
+
+## Layout Structure
+
+```
++------------------+-------------------+------------------+
+|                  |                   |                  |
+|   SIDEBAR        |   MAIN CONTENT    |   TABLE OF       |
+|   (Navigation)   |   (Documentation) |   CONTENTS       |
+|                  |                   |                  |
+| - Getting Started| - Article content | - On this page   |
+| - Core Concepts  | - Code examples   | - Navigation     |
+| - API Reference  | - Guides          | - Related        |
+| - Guides         |                   |                  |
+|                  |                   |                  |
++------------------+-------------------+------------------+
+|                  |                   |                  |
+|                  |     FOOTER        |                  |
+|                  |                   |                  |
++------------------+-------------------+------------------+
+```
+
+---
+
+## Project Structure
+
+```
+src/
+├── composables/         # Vue composables
+├── stores/              # Pinia stores
+│   ├── settings.ts          # Theme preferences
+│   └── stats.ts             # Analytics tracking
+├── views/
+│   ├── Home.vue             # Docs landing page
+│   └── Article.vue          # Individual doc page
+├── components/
+│   └── SettingsPanel.vue    # Settings modal
+├── App.vue              # Root layout
+├── main.ts              # Vite-SSG entry
+├── router.ts            # Router configuration
+└── style.css            # Tailwind v4 + Docs theme
+```
+
+---
+
+## Navigation Structure
+
+Define navigation in App.vue:
+
+```typescript
+const navItems = [
+  { title: 'Getting Started', icon: BookOpen, items: ['Introduction', 'Installation'] },
+  { title: 'Core Concepts', icon: FileText, items: ['Architecture', 'Components'] },
+  { title: 'Guides', icon: Folder, items: ['Deployment', 'Customization'] },
+]
+```
 
 ---
 
 ## Deployment
 
-Compatible with any static hosting:
-
-- **Vercel**: `npx vercel --prod`
-- **Netlify**: Connect repository
-- **GitHub Pages**: Deploy `dist/` folder
-
 ```bash
-# Deploy to Vercel
-npx vercel --prod --name neotheme
+# Build for production (SSG)
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
----
-
-## License
-
-MIT License - See [LICENSE](LICENSE) for details.
+Compatible with Vercel, Netlify, GitHub Pages, and Cloudflare Pages.
 
 ---
 
 <div align="center">
 
-**Built with Vue 3 + Vite-SSG + Tailwind CSS**
+**DOCS.** // KNOWLEDGE BASE SYSTEM
 
 </div>
