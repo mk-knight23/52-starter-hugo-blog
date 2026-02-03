@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[DOCS. Knowledge Base]]></title>
+        <description><![CDATA[Latest documentation and tutorials from DOCS.]]></description>
+        <link>https://yourdomain.com</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Tue, 03 Feb 2026 20:06:25 GMT</lastBuildDate>
+        <atom:link href="https://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Tue, 03 Feb 2026 20:06:25 GMT</pubDate>
+        <language><![CDATA[en]]></language>
+        <ttl>60</ttl>
+        <item>
+            <title><![CDATA[Architecture]]></title>
+            <description><![CDATA[Understanding the DOCS. architecture and how components work together.]]></description>
+            <link>https://yourdomain.com/core-concepts/architecture</link>
+            <guid isPermaLink="true">https://yourdomain.com/core-concepts/architecture</guid>
+            <category><![CDATA[Core Concepts]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Components]]></title>
+            <description><![CDATA[Understanding Vue components and how to use them in DOCS.]]></description>
+            <link>https://yourdomain.com/core-concepts/components</link>
+            <guid isPermaLink="true">https://yourdomain.com/core-concepts/components</guid>
+            <category><![CDATA[Core Concepts]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[State Management]]></title>
+            <description><![CDATA[How Pinia stores manage application state in DOCS.]]></description>
+            <link>https://yourdomain.com/core-concepts/state-management</link>
+            <guid isPermaLink="true">https://yourdomain.com/core-concepts/state-management</guid>
+            <category><![CDATA[Core Concepts]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Installation]]></title>
+            <description><![CDATA[Step-by-step guide to setting up DOCS. on your local machine.]]></description>
+            <link>https://yourdomain.com/getting-started/installation</link>
+            <guid isPermaLink="true">https://yourdomain.com/getting-started/installation</guid>
+            <category><![CDATA[Getting Started]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction]]></title>
+            <description><![CDATA[Welcome to DOCS. - A comprehensive knowledge base system for developers.]]></description>
+            <link>https://yourdomain.com/getting-started/introduction</link>
+            <guid isPermaLink="true">https://yourdomain.com/getting-started/introduction</guid>
+            <category><![CDATA[Getting Started]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Quick Start]]></title>
+            <description><![CDATA[Get up and running with DOCS. in under 5 minutes.]]></description>
+            <link>https://yourdomain.com/getting-started/quick-start</link>
+            <guid isPermaLink="true">https://yourdomain.com/getting-started/quick-start</guid>
+            <category><![CDATA[Getting Started]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Customization]]></title>
+            <description><![CDATA[Customize the DOCS. theme to match your brand.]]></description>
+            <link>https://yourdomain.com/guides/customization</link>
+            <guid isPermaLink="true">https://yourdomain.com/guides/customization</guid>
+            <category><![CDATA[Guides]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Deployment]]></title>
+            <description><![CDATA[Deploy your DOCS. site to popular hosting platforms.]]></description>
+            <link>https://yourdomain.com/guides/deployment</link>
+            <guid isPermaLink="true">https://yourdomain.com/guides/deployment</guid>
+            <category><![CDATA[Guides]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Plugins & Extensions]]></title>
+            <description><![CDATA[Extend DOCS. with custom plugins and integrations.]]></description>
+            <link>https://yourdomain.com/guides/plugins</link>
+            <guid isPermaLink="true">https://yourdomain.com/guides/plugins</guid>
+            <category><![CDATA[Guides]]></category>
+            <dc:creator><![CDATA[DOCS. Team]]></dc:creator>
+            <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

@@ -11,6 +11,7 @@ export function useKeyboardControls(
   handlers: {
     onToggleTheme?: () => void;
     onOpenSettings?: () => void;
+    onOpenSearch?: () => void;
     onClose?: () => void;
   },
   options: UseKeyboardControlsOptions = {}
@@ -47,6 +48,12 @@ export function useKeyboardControls(
     if (keyCombo === settingsShortcut && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
       event.preventDefault();
       handlers.onOpenSettings?.();
+    }
+
+    const searchShortcut = ['ctrl', 'k'].join('+');
+    if (keyCombo === searchShortcut && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      handlers.onOpenSearch?.();
     }
   }
 

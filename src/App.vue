@@ -11,22 +11,29 @@ import {
   ChevronRight,
   Home,
   Settings,
-  Zap
+  Zap,
+  Tag
 } from 'lucide-vue-next'
 import { useHead } from '@vueuse/head'
 import { useSettingsStore } from './stores/settings'
 import { useStatsStore } from './stores/stats'
+import { useSearchStore } from './stores/search'
 import { audioService } from './composables/useAudio'
 import { useKeyboardControls } from './composables/useKeyboardControls'
 import SettingsPanel from './components/SettingsPanel.vue'
+import SearchModal from './components/SearchModal.vue'
+import TableOfContentsSidebar from './components/TableOfContentsSidebar.vue'
+import Analytics from './components/Analytics.vue'
 
 const showSettings = ref(false)
 const settingsStore = useSettingsStore()
 const statsStore = useStatsStore()
+const searchStore = useSearchStore()
 
 onMounted(() => {
   settingsStore.loadSettings()
   statsStore.loadStats()
+  searchStore.initializeIndex()
   statsStore.recordVisit()
 })
 
@@ -41,6 +48,10 @@ function openSettings(): void {
   statsStore.recordSettingsOpen()
 }
 
+function openSearch(): void {
+  searchStore.open()
+}
+
 function recordClick(): void {
   statsStore.recordClick()
 }
@@ -48,16 +59,54 @@ function recordClick(): void {
 useKeyboardControls({
   onToggleTheme: toggleTheme,
   onOpenSettings: openSettings,
+  onOpenSearch: openSearch,
   onClose: () => {
     showSettings.value = false
+    searchStore.close()
     settingsStore.hideHelp()
   }
 })
 
 const navItems = [
-  { title: 'Getting Started', icon: BookOpen, items: ['Introduction', 'Installation', 'Quick Start'] },
-  { title: 'Core Concepts', icon: FileText, items: ['Architecture', 'Components', 'State Management'] },
-  { title: 'Guides', icon: Folder, items: ['Deployment', 'Customization', 'Plugins'] },
+  {
+    title: 'Getting Started',
+    icon: BookOpen,
+    path: '/getting-started',
+    items: [
+      { title: 'Introduction', path: '/getting-started/introduction' },
+      { title: 'Installation', path: '/getting-started/installation' },
+      { title: 'Quick Start', path: '/getting-started/quick-start' }
+    ]
+  },
+  {
+    title: 'Core Concepts',
+    icon: FileText,
+    path: '/core-concepts',
+    items: [
+      { title: 'Architecture', path: '/core-concepts/architecture' },
+      { title: 'Components', path: '/core-concepts/components' },
+      { title: 'State Management', path: '/core-concepts/state-management' }
+    ]
+  },
+  {
+    title: 'Guides',
+    icon: Folder,
+    path: '/guides',
+    items: [
+      { title: 'Deployment', path: '/guides/deployment' },
+      { title: 'Customization', path: '/guides/customization' },
+      { title: 'Plugins', path: '/guides/plugins' }
+    ]
+  },
+  {
+    title: 'Browse',
+    icon: Tag,
+    path: '/tags',
+    items: [
+      { title: 'Tags', path: '/tags' },
+      { title: 'Categories', path: '/categories' }
+    ]
+  }
 ]
 
 useHead({
@@ -69,46 +118,51 @@ useHead({
 <template>
   <div class="docs-container" :class="{ 'dark': settingsStore.isDarkMode }">
     <!-- Top Navigation -->
-    <header class="sticky top-0 z-50 border-b px-6 py-3 flex items-center justify-between" style="background: inherit; border-color: var(--color-docs-border);">
+    <header class="docs-top-nav">
        <div class="flex items-center gap-6">
-          <router-link to="/" class="flex items-center gap-2" @click="recordClick">
-             <div class="w-8 h-8 rounded-lg bg-docs-primary flex items-center justify-center">
+          <router-link to="/" class="flex items-center gap-2.5 group" @click="recordClick">
+             <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-violet flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-shadow">
                 <BookOpen class="text-white" :size="18" />
              </div>
-             <span class="font-bold text-lg tracking-tight">DOCS<span class="text-docs-primary">.</span></span>
+             <span class="font-bold text-xl tracking-tight text-text dark:text-text-dark">
+                DOCS<span class="text-primary">.</span>
+             </span>
           </router-link>
 
           <div class="hidden md:flex items-center gap-1">
-             <button class="docs-search !w-64 !py-2 !text-sm flex items-center gap-2">
-                <Search :size="16" />
-                <span class="text-docs-text-muted">Search docs...</span>
-                <kbd class="docs-code-inline ml-auto">⌘K</kbd>
+             <button
+                @click="openSearch(); recordClick()"
+                class="docs-search !w-72 !py-2 !text-sm flex items-center gap-2 cursor-pointer hover:border-border-strong transition-colors"
+             >
+                <Search :size="16" class="text-text-muted" />
+                <span class="text-text-muted">Search docs...</span>
+                <kbd class="docs-code-inline ml-auto text-xs">⌘K</kbd>
              </button>
           </div>
        </div>
 
-       <div class="flex items-center gap-3">
-          <button @click="toggleTheme(); recordClick()" class="p-2 rounded-lg hover:bg-docs-bg-sidebar transition-colors" :aria-label="settingsStore.isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
-             <Sun v-if="settingsStore.isDarkMode" :size="18" class="text-docs-text-muted" />
-             <Moon v-else :size="18" class="text-docs-text-muted" />
+       <div class="flex items-center gap-2">
+          <button @click="toggleTheme(); recordClick()" class="docs-icon-btn" :aria-label="settingsStore.isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+             <Sun v-if="settingsStore.isDarkMode" :size="18" />
+             <Moon v-else :size="18" />
           </button>
 
-          <button @click="openSettings(); recordClick()" class="p-2 rounded-lg hover:bg-docs-bg-sidebar transition-colors" aria-label="Settings">
-             <Settings :size="18" class="text-docs-text-muted" />
+          <button @click="openSettings(); recordClick()" class="docs-icon-btn" aria-label="Settings">
+             <Settings :size="18" />
           </button>
 
-          <div class="h-6 w-px bg-docs-border mx-2"></div>
+          <div class="h-5 w-px bg-border dark:bg-border-dark mx-1"></div>
 
-          <a href="https://github.com" target="_blank" class="p-2 rounded-lg hover:bg-docs-bg-sidebar transition-colors" aria-label="GitHub">
-             <Github :size="18" class="text-docs-text-muted" />
+          <a href="https://github.com" target="_blank" class="docs-icon-btn" aria-label="GitHub">
+             <Github :size="18" />
           </a>
        </div>
     </header>
 
     <div class="docs-layout">
        <!-- Sidebar Navigation -->
-       <aside class="docs-sidebar hidden lg:block" :class="{ 'dark': settingsStore.isDarkMode }">
-          <div class="p-4 border-b" style="border-color: var(--color-docs-border);">
+       <aside class="docs-sidebar hidden lg:block">
+          <div class="p-4 border-b border-border dark:border-border-dark">
              <router-link to="/" class="docs-nav-item" @click="recordClick">
                 <Home :size="18" />
                 <span>Overview</span>
@@ -124,22 +178,22 @@ useHead({
                 <div class="space-y-1">
                    <router-link
                       v-for="item in section.items"
-                      :key="item"
-                      :to="'/' + item.toLowerCase().replace(' ', '-')"
+                      :key="item.path"
+                      :to="item.path"
                       class="docs-nav-item"
                       active-class="docs-nav-item-active"
                       @click="recordClick"
                    >
                       <ChevronRight :size="14" />
-                      {{ item }}
+                      {{ item.title }}
                    </router-link>
                 </div>
              </div>
           </nav>
 
-          <div class="absolute bottom-0 left-0 right-0 p-4 border-t" style="border-color: var(--color-docs-border);">
-             <div class="flex items-center justify-between text-xs text-docs-text-muted">
-                <span>v2.0.0</span>
+          <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-border dark:border-border-dark bg-surface dark:bg-surface-dark">
+             <div class="flex items-center justify-between text-xs text-text-muted dark:text-text-muted-dark">
+                <span class="font-medium">v2.0.0</span>
                 <span>Last updated today</span>
              </div>
           </div>
@@ -155,36 +209,29 @@ useHead({
        </main>
 
        <!-- Table of Contents (Right Sidebar) -->
-       <aside class="hidden xl:block w-64 flex-shrink-0 pl-4">
-          <div class="sticky top-24">
-             <p class="text-xs font-bold uppercase tracking-wider mb-4 text-docs-text-muted">On this page</p>
-             <nav class="docs-toc">
-                <a href="#" class="docs-toc-link docs-toc-link-active">Introduction</a>
-                <a href="#" class="docs-toc-link">Getting Started</a>
-                <a href="#" class="docs-toc-link">Configuration</a>
-                <a href="#" class="docs-toc-link">Components</a>
-                <a href="#" class="docs-toc-link">API Reference</a>
-             </nav>
-          </div>
+       <aside class="hidden xl:block w-64 flex-shrink-0 pl-4 py-12">
+          <TableOfContentsSidebar />
        </aside>
     </div>
 
     <!-- Footer -->
     <footer class="docs-footer flex flex-col md:flex-row justify-between items-center gap-4">
        <div class="flex items-center gap-4">
-          <div class="w-8 h-8 rounded-lg bg-docs-primary/10 flex items-center justify-center">
-             <Zap class="text-docs-primary" :size="16" />
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-violet flex items-center justify-center">
+             <Zap class="text-white" :size="18" />
           </div>
-          <span class="text-sm text-docs-text-muted">DOCS. Knowledge Base</span>
+          <span class="text-sm text-text-secondary dark:text-text-secondary-dark font-medium">DOCS. Knowledge Base</span>
        </div>
-       <div class="flex items-center gap-6 text-sm text-docs-text-muted">
-          <a href="#" class="hover:text-docs-primary">Terms</a>
-          <a href="#" class="hover:text-docs-primary">Privacy</a>
-          <a href="#" class="hover:text-docs-primary">License</a>
+       <div class="flex items-center gap-6 text-sm text-text-muted dark:text-text-muted-dark">
+          <a href="#" class="hover:text-primary transition-colors">Terms</a>
+          <a href="#" class="hover:text-primary transition-colors">Privacy</a>
+          <a href="#" class="hover:text-primary transition-colors">License</a>
        </div>
-       <p class="text-sm text-docs-text-muted">© 2026 DOCS. Systems</p>
+       <p class="text-sm text-text-muted dark:text-text-muted-dark">© 2026 DOCS. Systems</p>
     </footer>
 
     <SettingsPanel v-if="showSettings" @close="showSettings = false" />
+    <SearchModal />
+    <Analytics />
   </div>
 </template>
