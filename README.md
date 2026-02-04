@@ -9,9 +9,17 @@
 
 **A modern documentation system built with Vue 3, Vite-SSG, and Tailwind CSS v4**
 
-[Live Demo](https://starter-hugo-01.vercel.app) ✅ | [GitHub](https://github.com/mk-knight23/52-starter-hugo-blog)
+[Firebase Live Demo](https://clock3-1b2c4.web.app) ✅ | [GitHub](https://github.com/mk-knight23/52-starter-hugo-blog)
 
 </div>
+
+---
+
+## Deployment Status
+
+- **Firebase**: Deployed ✅
+- **Render**: Configured (push to deploy) ⏳
+- **Amplify**: Configured (Account Limit Reached) ⚠️
 
 ---
 
