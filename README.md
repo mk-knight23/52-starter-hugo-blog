@@ -9,7 +9,7 @@
 
 **A modern documentation system built with Vue 3, Vite-SSG, and Tailwind CSS v4**
 
-[Live Demo](https://neotheme.vercel.app) | [GitHub](https://github.com/mk-knight23/52-starter-hugo-blog)
+[Live Demo](https://starter-hugo-01.vercel.app) ✅ | [GitHub](https://github.com/mk-knight23/52-starter-hugo-blog)
 
 </div>
 
