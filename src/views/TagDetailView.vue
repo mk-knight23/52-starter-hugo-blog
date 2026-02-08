@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@vueuse/head'
 import { Tag as TagIcon, Calendar, FileText } from 'lucide-vue-next'
-import { getContentByTag, getAllTags } from '@/utils/taxonomy'
+import { getContentByTag, getAllTags, type Tag, type ContentItem } from '@/utils/taxonomy'
 import { useSettingsStore } from '@/stores/settings'
 
 const route = useRoute()
@@ -11,12 +11,17 @@ const settingsStore = useSettingsStore()
 
 const tagSlug = computed(() => route.params.slug as string)
 
-const tags = computed(() => getAllTags())
+const tags = ref<Tag[]>([])
 const currentTag = computed(() =>
   tags.value.find((t) => t.slug === tagSlug.value)
 )
 
-const content = computed(() => getContentByTag(tagSlug.value))
+const content = ref<ContentItem[]>([])
+
+onMounted(async () => {
+  tags.value = await getAllTags()
+  content.value = await getContentByTag(tagSlug.value)
+})
 
 useHead({
   title: currentTag.value

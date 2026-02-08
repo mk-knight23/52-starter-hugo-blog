@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useHead } from '@vueuse/head'
 import { Folder } from 'lucide-vue-next'
 import { getAllCategories } from '@/utils/taxonomy'
 import { useSettingsStore } from '@/stores/settings'
+import type { Category } from '@/utils/taxonomy'
 
 const settingsStore = useSettingsStore()
-const categories = computed(() => getAllCategories())
+const categories = ref<Category[]>([])
+
+onMounted(async () => {
+  categories.value = await getAllCategories()
+})
 
 useHead({
   title: 'Categories | DOCS.',

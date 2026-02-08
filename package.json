@@ -26,6 +26,7 @@
     "@mdit-vue/plugin-sfc": "^3.0.2",
     "@mdit-vue/plugin-title": "^3.0.2",
     "@mdit-vue/plugin-toc": "^3.0.2",
+    "@tailwindcss/vite": "^4.0.0",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.1",

@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useHead } from '@vueuse/head'
 import { Tag as TagIcon } from 'lucide-vue-next'
 import { getAllTags } from '@/utils/taxonomy'
 import { useSettingsStore } from '@/stores/settings'
+import type { Tag } from '@/utils/taxonomy'
 
 const settingsStore = useSettingsStore()
-const tags = computed(() => getAllTags())
+const tags = ref<Tag[]>([])
+
+onMounted(async () => {
+  tags.value = await getAllTags()
+})
 
 useHead({
   title: 'Tags | DOCS.',

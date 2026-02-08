@@ -18,8 +18,8 @@ export interface TaxonomyContent {
 }
 
 // Get all unique tags with counts
-export function getAllTags(): Tag[] {
-  const content = getAllContent()
+export async function getAllTags(): Promise<Tag[]> {
+  const content = await getAllContent()
   const tagMap = new Map<string, number>()
 
   content.forEach((item) => {
@@ -40,8 +40,8 @@ export function getAllTags(): Tag[] {
 }
 
 // Get all unique categories with counts
-export function getAllCategories(): Category[] {
-  const content = getAllContent()
+export async function getAllCategories(): Promise<Category[]> {
+  const content = await getAllContent()
   const categoryMap = new Map<string, number>()
 
   content.forEach((item) => {
@@ -60,8 +60,8 @@ export function getAllCategories(): Category[] {
 }
 
 // Get content by tag
-export function getContentByTag(tag: string) {
-  const content = getAllContent()
+export async function getContentByTag(tag: string) {
+  const content = await getAllContent()
   return content.filter((item) => {
     const tags = item.frontmatter.tags || []
     return tags.some((t: string) => t.toLowerCase() === tag.toLowerCase())
@@ -69,8 +69,8 @@ export function getContentByTag(tag: string) {
 }
 
 // Get content by category
-export function getContentByCategory(category: string) {
-  const content = getAllContent()
+export async function getContentByCategory(category: string) {
+  const content = await getAllContent()
   return content.filter((item) => {
     const itemCategory = item.frontmatter.category || 'Uncategorized'
     return itemCategory.toLowerCase().replace(/\s+/g, '-') === category.toLowerCase()
@@ -78,8 +78,8 @@ export function getContentByCategory(category: string) {
 }
 
 // Get related content by tags
-export function getRelatedContent(currentSlug: string, limit = 3) {
-  const content = getAllContent()
+export async function getRelatedContent(currentSlug: string, limit = 3) {
+  const content = await getAllContent()
   const current = content.find((item) => item.slug === currentSlug)
 
   if (!current) return []

@@ -1,19 +1,21 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { getAllContent } from './utils/contentLoader'
+import type { ContentItem } from './utils/contentLoader'
 
-// Load all content to generate routes
-const allContent = getAllContent()
+// Content routes will be generated dynamically at runtime
+const contentRoutes: RouteRecordRaw[] = []
 
-// Generate routes from content
-const contentRoutes: RouteRecordRaw[] = allContent.map((item) => ({
-  path: `/${item.frontmatter.category.toLowerCase().replace(' ', '-')}/${item.slug}`,
-  component: () => import('./views/ArticleView.vue'),
-  props: { slug: item.slug, frontmatter: item.frontmatter },
-  meta: {
-    title: item.frontmatter.title,
-    description: item.frontmatter.description
-  }
-}))
+// Helper function to generate routes from content items
+export function generateContentRoutes(items: ContentItem[]): RouteRecordRaw[] {
+  return items.map((item) => ({
+    path: `/${item.frontmatter.category.toLowerCase().replace(' ', '-')}/${item.slug}`,
+    component: () => import('./views/ArticleView.vue'),
+    props: { slug: item.slug, frontmatter: item.frontmatter },
+    meta: {
+      title: item.frontmatter.title,
+      description: item.frontmatter.description
+    }
+  }))
+}
 
 export const routes: RouteRecordRaw[] = [
   {

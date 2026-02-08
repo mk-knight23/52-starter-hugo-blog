@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import tailwindcss from '@tailwindcss/vite'
 import Markdown from 'unplugin-vue-markdown/vite'
 import { resolve } from 'path'
 import markdownItAnchor from 'markdown-it-anchor'
@@ -7,6 +8,7 @@ import markdownItAnchor from 'markdown-it-anchor'
 export default defineConfig({
   plugins: [
     vue(),
+    tailwindcss(),
     Markdown({
       markdownItOptions: {
         html: true,

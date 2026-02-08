@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@vueuse/head'
 import { ChevronRight, Calendar, User, Tag } from 'lucide-vue-next'
-import { getContentBySlug } from '@/utils/contentLoader'
+import { getContentBySlug, type ContentItem } from '@/utils/contentLoader'
 import { useSettingsStore } from '@/stores/settings'
 import GiscusComments from '@/components/GiscusComments.vue'
 import UtterancesComments from '@/components/UtterancesComments.vue'
@@ -18,13 +18,16 @@ const props = defineProps<{
   slug?: string
 }>()
 
-const content = computed(() => {
-  const slug = props.slug || (route.params.slug as string)
-  return getContentBySlug(slug)
-})
+const content = ref<ContentItem | null>(null)
+const loading = ref(true)
 
-// Set meta tags
-onMounted(() => {
+// Load content and set meta tags
+onMounted(async () => {
+  const slug = props.slug || (route.params.slug as string)
+  loading.value = true
+  content.value = await getContentBySlug(slug)
+  loading.value = false
+
   if (content.value) {
     const categorySlug = content.value.frontmatter.category
       .toLowerCase()

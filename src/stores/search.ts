@@ -36,7 +36,7 @@ export const useSearchStore = defineStore('search', () => {
   const hasResults = computed(() => results.value.length > 0)
 
   async function initializeIndex() {
-    const content = getAllContent()
+    const content = await getAllContent()
 
     // Create FlexSearch index
     index.value = new FlexSearch.Index({
