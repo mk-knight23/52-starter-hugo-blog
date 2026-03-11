@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "production": "npm run build && npm start",
     "dev": "vite",
     "build": "vite build && npm run generate:feeds",
     "build:check": "vue-tsc -b && vite build && npm run generate:feeds",
