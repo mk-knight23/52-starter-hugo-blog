@@ -1,197 +1,165 @@
-# Architecture | DOCS. Vue Knowledge Base
+---
+title: Architecture
+description: Understanding the DOCS. architecture and how components work together.
+date: 2026-01-29
+category: Core Concepts
+author: DOCS. Team
+---
 
-## Overview
+# Architecture
 
-DOCS. is a Vue 3 + Vite-SSG static site generator starter designed for creating professional documentation and knowledge bases. It provides a clean, navigation-focused layout optimized for technical content.
+DOCS. is built on modern web technologies with performance and developer experience in mind.
 
-## Tech Stack
+## Technology Stack
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Vue 3.5+ (Composition API) |
-| SSG | Vite-SSG |
-| Language | TypeScript 5.9 |
-| Styling | Tailwind CSS v4 |
-| State | Pinia 3.x |
-| Routing | Vue Router 4.x |
-| Head | @vueuse/head |
-| Icons | Lucide Vue Next |
+### Frontend Framework
+- **Vue 3.5+** - Progressive JavaScript framework with Composition API
+- **TypeScript 5.9+** - Type-safe development
+- **Vite 7.x** - Lightning-fast build tool
 
-## Directory Structure
+### Static Site Generation
+- **Vite-SSG** - Static site generation for Vue 3
+- **Vue Router 4.x** - Client-side routing
+- **@vueuse/head** - SEO meta tag management
+
+### Styling
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **PostCSS** - CSS transformations
+- **Autoprefixer** - Browser compatibility
+
+### State Management
+- **Pinia 3.x** - Official Vue state management
+- **LocalStorage** - Client-side persistence
+
+### Icons
+- **Lucide Vue Next** - Beautiful icon library
+
+## Project Structure
 
 ```
-src/
-├── composables/         # Vue composables
-│   ├── useAudio.ts          # Sound effects
-│   ├── useKeyboardControls.ts # Keyboard shortcuts
-├── stores/              # Pinia stores
-│   ├── settings.ts          # Theme preferences
-│   └── stats.ts             # Analytics tracking
-├── views/
-│   ├── Home.vue             # Docs landing page
-│   └── Article.vue          # Individual doc page
-├── components/
-│   └── SettingsPanel.vue    # Settings modal
-├── App.vue              # Root layout with sidebar
-├── main.ts              # Vite-SSG entry
-├── router.ts            # Router configuration
-└── style.css            # Tailwind v4 + Docs theme
+52-starter-hugo-blog/
+├── public/              # Static assets
+├── src/
+│   ├── content/        # Markdown documentation
+│   ├── components/     # Reusable Vue components
+│   ├── composables/    # Vue composition functions
+│   ├── stores/         # Pinia stores
+│   ├── views/          # Page components
+│   ├── utils/          # Utility functions
+│   ├── App.vue         # Root component
+│   ├── main.ts         # Application entry
+│   ├── router.ts       # Route definitions
+│   └── style.css       # Global styles
+├── .github/            # GitHub workflows
+├── package.json        # Dependencies
+├── vite.config.ts      # Vite configuration
+└── tsconfig.json       # TypeScript configuration
 ```
 
-## State Management
+## Data Flow
 
-### Settings Store (`stores/settings.ts`)
+```
+User Interaction
+    ↓
+Component (Vue SFC)
+    ↓
+Composable (Logic)
+    ↓
+Store (State)
+    ↓
+LocalStorage (Persistence)
+```
 
-Manages user preferences:
-- Theme mode (dark/light/system)
-- Sound effects toggle
-- Reduced motion preference
-- Help panel visibility
+## Key Patterns
+
+### 1. Composition API
+
+All components use Vue 3 Composition API:
+
+```vue
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+
+const count = ref(0)
+const doubled = computed(() => count.value * 2)
+</script>
+```
+
+### 2. Pinia Stores
+
+State management with Pinia:
 
 ```typescript
-const settingsStore = useSettingsStore()
-settingsStore.isDarkMode // Computed theme state
-settingsStore.toggleTheme()
-```
+export const useSettingsStore = defineStore('settings', () => {
+  const theme = ref('system')
+  const isDark = computed(() => theme.value === 'dark')
 
-### Stats Store (`stores/stats.ts`)
+  function setTheme(newTheme: string) {
+    theme.value = newTheme
+  }
 
-Tracks usage analytics:
-- Page visits
-- Theme switches
-- Settings panel opens
-- Click events
-
-## Composables
-
-### useKeyboardControls (`composables/useKeyboardControls.ts`)
-
-Global keyboard shortcuts:
-- `Cmd/Ctrl + K` - Focus search
-- `Cmd/Ctrl + /` - Toggle theme
-- `Esc` - Close modals
-
-### useAudio (`composables/useAudio.ts`)
-
-UI sound effects management.
-
-## Tailwind v4 Configuration
-
-No `tailwind.config.js` needed. Theme defined in CSS:
-
-```css
-@theme {
-  --color-docs-primary: #0ea5e9;
-  --color-docs-bg: #ffffff;
-  --color-docs-bg-sidebar: #f8fafc;
-  --font-display: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-```
-
-## Layout Architecture
-
-### Three-Column Layout
-
-1. **Sidebar (Left)** - 18rem fixed
-   - Sticky navigation
-   - Section organization
-   - Icon support
-
-2. **Content (Center)** - Flexible
-   - Main documentation
-   - Code examples
-   - Guides and tutorials
-
-3. **Table of Contents (Right)** - 16rem fixed (desktop only)
-   - Page navigation
-   - Scroll tracking
-   - Active state
-
-## Build Output
-
-```
-dist/
-├── index.html           # Landing page
-├── getting-started/
-│   └── index.html       # Doc pages
-├── installation/
-│   └── index.html
-└── assets/
-    ├── index-[hash].js
-    └── index-[hash].css
-```
-
-## Development
-
-```bash
-# Start dev server
-npm run dev
-
-# Type checking
-npm run type-check
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-## Performance
-
-- **Vite-SSG:** Pre-rendered HTML for SEO
-- **Tailwind v4:** Zero-runtime CSS
-- **Lazy Loading:** Components loaded on demand
-- **Minimal JS:** Vue hydration only
-
-## Deployment
-
-Pre-configured for:
-- Vercel (zero config)
-- Netlify (zero config)
-- GitHub Pages
-- Cloudflare Pages
-
-```bash
-npm run build
-# Deploy dist/ folder
-```
-
-## SEO
-
-Uses `@vueuse/head` for meta tags:
-
-```typescript
-useHead({
-  title: 'DOCS. | Knowledge Base',
-  meta: [
-    { name: 'description', content: 'Complete documentation...' },
-    { property: 'og:title', content: 'DOCS. | Knowledge Base' },
-  ],
+  return { theme, isDark, setTheme }
 })
 ```
 
-## Customization
+### 3. Route Guards
 
-### Adding Navigation Sections
-
-Edit `navItems` array in App.vue:
+Navigation guards for analytics:
 
 ```typescript
-const navItems = [
-  { title: 'Getting Started', icon: BookOpen, items: ['Introduction', 'Installation'] },
-  { title: 'Your Section', icon: FileText, items: ['Topic 1', 'Topic 2'] },
-]
+router.beforeEach((to, from, next) => {
+  // Track page views
+  next()
+})
 ```
 
-### Styling Customization
+## Performance Optimizations
 
-Modify CSS variables in `style.css`:
+### Static Site Generation
+- Pre-render all routes at build time
+- Generate static HTML for instant loading
+- Hydrate for interactive features
 
-```css
-@theme {
-  --color-docs-primary: #your-color;
-  --color-docs-bg-sidebar: #your-sidebar-bg;
-}
+### Code Splitting
+- Route-based lazy loading
+- Dynamic imports for heavy components
+- Vendor chunk optimization
+
+### Image Optimization
+- Responsive image generation
+- Modern formats (WebP, AVIF)
+- Lazy loading
+
+### Caching Strategy
+- Aggressive cache headers
+- Service worker (optional)
+- Immutable asset hashing
+
+## Build Process
+
+```bash
+# Development
+vite dev
+
+# Build
+vite build
+
+# Preview
+vite preview
 ```
+
+### Build Output
+
+```
+dist/
+├── assets/           # Hashed CSS/JS
+├── getting-started/  # Static HTML
+├── core-concepts/    # Static HTML
+└── index.html        # Entry point
+```
+
+## Next Steps
+
+- [Learn about Components](/core-concepts/components)
+- [Explore State Management](/core-concepts/state-management)
+- [Customize the Theme](/guides/customization)
